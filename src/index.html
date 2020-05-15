@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>concept notes</title>
+    <link rel='stylesheet' href='https://unpkg.com/swiper@5.2.0/css/swiper.min.css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,300&display=swap" rel="stylesheet">
+    <link rel='stylesheet' type='text/css' href='/css/style.css'>
+</head>
+<body>
+    <header>
+        <div class='header-container'>
+            <div class='company-box'>
+                <div class='box-header'>
+                    <img class='company-logo' src='/img/company-logo.png' alt='company logo'>
+                </div>
+            </div>
+            <div class='swiper-container'>
+                <div class='notes-container swiper-wrapper'>
+                    <div class='notes-add swiper-slide'>
+                        <img class='icon-plus' src='/img/ico-plus.png' alt='plus sign icon'>
+                    </div>
+                    <div class='notes-item swiper-slide'></div>
+                </div>
+            </div>
+            <div class='user-box'>
+                <div class='login-button'>
+                    <p>SIGNIN</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class='modal-container'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <button class='header-item signin-header-btn'>SIGN IN</button>
+                    <button class='header-item signup-header-btn'>SIGN UP</button>
+                </div>
+                <div class='modal-body'>
+                    <div class='body-item-container' id='signin-page'>
+                        <input type="text" class='auth-email auth-item' id='signin-email' value="EMAIL" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"></input>
+                        <input type='password' class='auth-password auth-item' id='signin-password' value="PASSWORD" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"></input>
+                        <button type='submit' class='auth-submit-btn auth-submit-btn--signin'>LOGIN</button>
+                    </div>
+                    <div class='body-item-container' id='signup-page'>
+                        <input type="text" class='auth-username auth-item' id='signup-username' value="USERNAME" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"></input>
+                        <input type="text" class='auth-email auth-item' id='signup-email' value="EMAIL" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"></input>
+                        <input type="text" class='auth-phone auth-item' id='signup-phone' value="PHONE" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"></input>
+                        <input type="password" class='auth-password auth-item' id='signup-password' value="PASSWORD" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"></input>
+                        <button type='submit' class='auth-submit-btn auth-submit-btn--signup'>SIGN UP</button>
+                    </div>
+                </div>
+                <div class='modal-footer'>
+                    <!-- signin with google option -->
+                    Google login
+                </div>
+            </div>
+        </div>
+        <div class='body-container'>
+            <textarea name='comment' class='body-textarea' placeholder='Begin your process of conceptualization...'></textarea>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright &copy; 2020 Haruki Jay Shimada. All Rights Reserved.</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+    <script src="js/bundle.js"></script>
+</body>
+</html>

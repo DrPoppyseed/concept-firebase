@@ -1,0 +1,15 @@
+export const elements = {
+    signinHeaderBtn: document.querySelector('.signin-header-btn'),
+    signupHeaderBtn: document.querySelector('.signup-header-btn'),
+    signinPage: document.querySelector('#signin-page'),
+    signupPage: document.querySelector('#signup-page'),
+    signinEmail: document.querySelector('#signin-email'),
+    signinPassword: document.querySelector('#signin-pasword'),
+    signupEmail: document.querySelector('#signup-email'),
+    signupPassword: document.querySelector('#signup-password'),
+    signupUsername: document.querySelector('#signup-username'),
+    signupPhone: document.querySelector('#signup-phone'),
+    notesAdd: document.querySelector('.notes-add'),
+    notesItem: document.querySelector('.notes-item'),
+    notesContainer: document.querySelector('.notes-container'),
+}
