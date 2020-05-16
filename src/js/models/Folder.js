@@ -1,13 +1,24 @@
-import firebase from 'firebase';
-import axios from 'axios';
+import * as firebase from 'firebase';
 
 export default class Folder {
     constructor() {
-
     }
 
-    retrieveFolders(uid) {
-        var db = firebase.database().ref(`users/${uid}`);
-        console.log(db);
+    async createNewFolder() {
+        try {
+            var db = await firebase.database().ref(``)
+            console.log(db);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async retrieveFolders() {
+        try {
+            var db = await firebase.database().ref(`users/${this.uid}/notedIDs`);
+            console.log(db);
+        } catch (err) {
+            console.log(err)
+        }
     }
 }

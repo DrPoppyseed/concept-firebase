@@ -7,16 +7,15 @@ export default class Auth {
 
     // Sign in based on email and password
     // return uid
-    signin(email, password) {
+    signin(email, password, callback) {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-                    console.log(user.toJSON());
-                    var uid = user.uid;
-                    return uid;
+                    callback(user.uid);
                 } else {
                     console.log("user is logged out");
+                    callback(false);
                 }
             });
         })
@@ -24,6 +23,12 @@ export default class Auth {
             console.log(e);
             return false;
         });
+    }
+
+    signinVerification(email, password) {
+        if (email.equals('EMAIL') || password.equals('PASSWORD')) { 
+        
+        }
     }
 
     signup(username, email, password, phone) {

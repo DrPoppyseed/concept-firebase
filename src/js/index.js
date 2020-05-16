@@ -1,3 +1,5 @@
+import uniqid from 'uniqid';
+
 import Folder from './models/Folder';
 import Auth from './models/Auth';
 import * as folderView from './views/folderView';
@@ -21,7 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    // firebase.analytics();
 } 
 
 $(document).ready(function() {
@@ -30,31 +32,40 @@ $(document).ready(function() {
     });
 });
 
-const authController = async () => {
-    var signinData = authView.onSigninClick();
-    state.auth = new Auth(signinData[0], signinData[1], null, null);
+const authController = () => {
+    state.auth = new Auth();
 
     authView.openPage();
     authView.openLoginModal();
-    
-    // authView.onSigninClick((email, password) => {
-    //     var uid = state.auth.signin(email, password);
-    //     // setInterval((uid) => {
-    //     //     if (uid) {
-    //     //         //if signin succeeds
-    //     //         var uid = state.auth.signin(email, password);
-    //     //         console.log(uid);
-    
-    //     //     } else {
-    //     //         //if signin is unsuccessful
-    //     //         console.log('signin usuccessful');
-    //     //     }
-    //     // }, 1000);
-    // });
+
+    authView.onSigninClick((email, password) => {
+        state.auth.signin(email, password, (uid) => {
+            if (uid) {
+                authView.closeLoginModal();
+                console.log(uid);
+                return uid;
+            } else {
+                console.log('no uid');
+                return false;
+            }
+        });
+    });
+}
+
+const folderController = () => {
+    const retrieveFolders = () => {
+        console.log(state.uid)
+        var db = firebase.database().ref(`users/${state.uid}/notedIDs`);
+        console.log(db.toString());
+    } 
+    return retrieveFolders();
 }
  
 $(document).ready(function() {
     authController();
+    // $.when(authController()).done(function() {
+    //     folderController();
+    // })
 })
 
 // View functions not transfered to view files yet
@@ -79,13 +90,3 @@ $(document).ready(function() {
 
     })
 })
-
-// var db = firebase.database().ref("users/jayshimada");
-
-// const getNoteIds = () => {
-//     return db.once('value').then((e) => {
-//         console.log(e.val());
-//     })
-// }
-
-// getNoteIds();

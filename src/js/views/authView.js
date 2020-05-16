@@ -19,6 +19,13 @@ export const openLoginModal = () => {
     });
 };
 
+export const closeLoginModal = () => {
+    $('.modal-container').css('display', 'none');
+    $('.body-container').css('display', 'block');
+    $('.login-button').removeClass('active-login-button');
+    $('.login-button-text').text("LOGOUT");
+}
+
 export const openPage = () => {
     $('#signin-page').css('display', 'flex');
     $('#signup-page').css('display', 'none');
@@ -42,17 +49,17 @@ export const openPage = () => {
     });
 };
 
-export const onSigninClick = (func) => {
+export const onSigninClick = (callback) => {
     $('.auth-submit-btn--signin').unbind('click').click(function(e) {
         e.preventDefault();
         var signinEmail = $('#signin-email').val();
         var signinPassword = $('#signin-password').val();
         console.log(`email:${signinEmail} password:${signinPassword}`);
-        func(signinEmail, signinPassword);
+        callback(signinEmail, signinPassword);
     });
 };
 
-export const onSignupClick = (func) => {
+export const onSignupClick = (callback) => {
     $('.auth-submit-btn--signup').unbind('click').click(function(e) {
         e.preventDefault();
         var signupUsername = $('#signup-username').val();
@@ -60,6 +67,6 @@ export const onSignupClick = (func) => {
         var signupPassword = $('#signup-password').val();
         var signupPhone = $('#signup-phone').val();
         console.log(`username:${signupUsername} email:${signupEmail} password:${signupPassword} phone:${signupPhone}`);
-        func(signupUsername, signupEmail, signupPassword, signupPhone);
+        callback(signupEmail, signupPassword, signupUsername, signupPhone);
     });
 };
