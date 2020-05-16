@@ -41,32 +41,32 @@ const authController = () => {
     authView.onSigninClick((email, password) => {
         state.auth.signin(email, password, (uid) => {
             if (uid) {
+                state.uid = uid;
                 authView.closeLoginModal();
                 console.log(uid);
-                return uid;
             } else {
                 console.log('no uid');
-                return false;
             }
         });
     });
 }
 
-const folderController = () => {
-    const retrieveFolders = () => {
-        console.log(state.uid)
-        var db = firebase.database().ref(`users/${state.uid}/notedIDs`);
-        console.log(db.toString());
-    } 
-    return retrieveFolders();
+async function folderController() {
+    var db = await firebase.database().ref(`users/${state.uid}/notedIDs`);
+    console.log(db);
+    // const retrieveFolders = () => {
+    //     console.log(state.uid)
+    //     var db = firebase.database().ref(`users/${state.uid}/notedIDs`);
+    //     console.log(db.toString());
+    // } 
 }
  
 $(document).ready(function() {
     authController();
-    // $.when(authController()).done(function() {
-    //     folderController();
-    // })
+    folderController();
 })
+
+
 
 // View functions not transfered to view files yet
 $(document).delegate('.body-textarea', 'keydown', function(e) { 

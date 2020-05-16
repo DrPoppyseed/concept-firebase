@@ -5,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const JavaScriptObfuscator = require('webpack-obfuscator');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     entry: [
@@ -15,6 +16,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/bundle.js'
     },
+    target: 'node',
+    externals: [nodeExternals()],
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
