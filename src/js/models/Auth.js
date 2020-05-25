@@ -31,6 +31,43 @@ export default class Auth {
         }
     }
 
+    async accessUserFolder(uid) {
+        var noteIDs;
+        var notes = await firebase.database().ref(`/users/${uid}/noteIDs`).once('value')
+            .then(async (snapshot) => {
+                noteIDs = snapshot.val().toString().split(", ");
+                console.log(noteIDs);
+                var notes = [];
+                for (let i = 0; i < noteIDs.length; i++) {
+                    const noteID = noteIDs[i];
+                    const note = await this.accessUserFolderHelper(noteID);
+                    console.log(`noteID: ${noteID}, note: ${note}`)
+                    notes.push({
+                        nid: noteID,
+                        n: note
+                    });
+                }
+                return notes;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        console.log(notes);
+        return notes;
+    }
+
+    async accessUserFolderHelper(noteID) {
+        var note = await firebase.database().ref(`/notes/${noteID}/val`).once('value')
+            .then(async (snapshot) => {
+                var val = await snapshot.val().toString();
+                return val;
+            })
+            .catch((err) => {
+                console.log(`FROM acessUserFolderHelper: ${err}`);
+            }) 
+        return note;
+    }
+
     signup(username, email, password, phone) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {

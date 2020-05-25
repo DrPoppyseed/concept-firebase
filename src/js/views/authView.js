@@ -50,14 +50,42 @@ export const openPage = () => {
 };
 
 export const onSigninClick = (callback) => {
+    // $(document).unbind('keypress').keypress(function(e){
+    //     var keycode = (e.keyCode ? e.keyCode : e.which);
+    //     if(keycode == '13'){
+    //         onSigninClickHelper(callback);
+    //     }
+    // });
     $('.auth-submit-btn--signin').unbind('click').click(function(e) {
         e.preventDefault();
-        var signinEmail = $('#signin-email').val();
-        var signinPassword = $('#signin-password').val();
-        console.log(`email:${signinEmail} password:${signinPassword}`);
-        callback(signinEmail, signinPassword);
+        onSigninClickHelper(callback);
     });
 };
+
+const onSigninClickHelper = (callback) => {
+    var signinEmail = $('#signin-email').val();
+    var signinPassword = $('#signin-password').val();
+    console.log(`email:${signinEmail} password:${signinPassword}`);
+    callback(signinEmail, signinPassword);
+}
+
+export const openUserFolder = (notes) => {
+    for (let i = 0; i < notes.length; i++) {
+        const id = notes[i].nid;
+        const text = notes[i].n.substring(0, 30);
+        elements.notesContainer.insertAdjacentHTML('beforeend', authAddNotesItem(id, text));
+    }
+}
+
+const authAddNotesItem = (id, text) => {
+    const html = 
+        `
+            <div class='notes-item swiper-slide' id='${id}'>
+                <p class='notes-item-title'>${text}</p>
+            </div>
+        `;
+    return html;
+}
 
 export const onSignupClick = (callback) => {
     $('.auth-submit-btn--signup').unbind('click').click(function(e) {

@@ -76,6 +76,12 @@ html {
                     &:active {
                         box-shadow: $box-shadow-on;
                     }
+                    
+                    .notes-item-title {
+                        padding-top: 0;
+                        padding: 0.5rem;
+                        font-size: 0.5rem;
+                    }
                 }
     
                 .notes-add {

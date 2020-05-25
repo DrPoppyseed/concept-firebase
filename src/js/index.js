@@ -1,4 +1,4 @@
-import uniqid from 'uniqid';
+// import uniqid from 'uniqid';
 
 import Folder from './models/Folder';
 import Auth from './models/Auth';
@@ -6,7 +6,7 @@ import * as folderView from './views/folderView';
 import * as authView from './views/authView';
 import { elements } from './views/base';
 
-const state = {};
+var state = {};
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -23,17 +23,12 @@ const firebaseConfig = {
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
-    // firebase.analytics();
-} 
+    firebase.analytics();
+}
 
-$(document).ready(function() {
-    $('.notes-add').unbind('click').click(function() {
-        folderView.addNote();
-    });
-});
-
-const authController = () => {
+const controller = () => {
     state.auth = new Auth();
+    state.folder = new Folder();
 
     authView.openPage();
     authView.openLoginModal();
@@ -43,7 +38,21 @@ const authController = () => {
             if (uid) {
                 state.uid = uid;
                 authView.closeLoginModal();
-                console.log(uid);
+                console.log(state.uid);
+                state.auth.accessUserFolder(state.uid)
+                    .then((notes) => {
+                        state.notes = notes;
+                        console.log(`notes from authController: ${state.notes}`)
+                        authView.openUserFolder(notes);
+
+                        folderView.openNote();
+                        folderView.addNote(state.uid, (uid, id) => {
+                            state.folder.createNewNote(uid, id)
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
             } else {
                 console.log('no uid');
             }
@@ -51,19 +60,9 @@ const authController = () => {
     });
 }
 
-async function folderController() {
-    var db = await firebase.database().ref(`users/${state.uid}/notedIDs`);
-    console.log(db);
-    // const retrieveFolders = () => {
-    //     console.log(state.uid)
-    //     var db = firebase.database().ref(`users/${state.uid}/notedIDs`);
-    //     console.log(db.toString());
-    // } 
-}
  
 $(document).ready(function() {
-    authController();
-    folderController();
+    controller();
 })
 
 

@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const JavaScriptObfuscator = require('webpack-obfuscator');
 const nodeExternals = require('webpack-node-externals');
 
@@ -16,9 +17,18 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/bundle.js'
     },
-    target: 'node',
-    externals: [nodeExternals()],
+    // target: 'node',
+    // node: {
+    //     child_process: 'empty',
+    //     fs: 'empty',
+    //     crpyto: 'empty',
+    //     net: 'empty',
+    //     tls: 'empty',
+    // },
+    // externals: [nodeExternals()],
+    target: 'web',
     optimization: {
+        minimize: true,
         minimizer: [
             new UglifyJsPlugin({
                 cache: true,
@@ -26,6 +36,7 @@ module.exports = {
                 sourceMap: false,
                 extractComments: 'all',
             }),
+            new TerserPlugin(),
             new OptimizeCSSAssetsPlugin({
                 cssProcessorOptions: {
                     safe: true,
